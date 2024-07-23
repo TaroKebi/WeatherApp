@@ -3,7 +3,8 @@ using System.Windows.Input;
 using WeatherReport.Components.Domain.Entities;
 using WeatherReport.Components.Domain.Helpers;
 using WeatherReport.Components.Domain.Repositories;
-using WeatherReport.Components.Infrastructure.WeatherApi;
+using WeatherReport.Components.Infrastructure.Api;
+using WeatherReport.Components.Infrastructure.Factories;
 
 namespace WeatherReport.Components.UI.ViewModels;
 
@@ -17,7 +18,7 @@ internal sealed class WeatherViewModel
     public bool IsLoading { get; set; } = false;
     
 
-    public WeatherViewModel() : this(new WeatherApi())
+    public WeatherViewModel() : this(WeatherFactory.Create())
     {
     }
 

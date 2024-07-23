@@ -3,7 +3,7 @@ using System.Text.Json;
 using WeatherReport.Components.Domain.Entities;
 using WeatherReport.Components.Domain.Repositories;
 
-namespace WeatherReport.Components.Infrastructure.WeatherApi;
+namespace WeatherReport.Components.Infrastructure.Api;
 
 internal sealed class WeatherApi : IWeatherRepository
 {
