@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:converters="clr-namespace:WeatherReport.Components.Domain.Converters"
+             x:Class="WeatherReport.Components.UI.Views.WeatherView"
+             Title="WeatherView">
+
+    <ContentPage.Resources>
+        <converters:CodeToWeatherConverter x:Key="CodeToWeather" />
+        <converters:CodeToLottieConverter x:Key="CodeToLottie" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions=".08*,.12*,.45*,.1*,.25*" Margin="15">
+        <!--#region 検索バー -->
+        <Grid Grid.Row="0">
+            <Frame/>
+            <SearchBar Placeholder="Enter city name" VerticalOptions="Center"
+                       x:Name="searchBar"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"
+                       SearchButtonPressed="SearchButtonPressed"
+                       FontSize="18" />
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region 検索結果の都市名と日付 -->
+        <VerticalStackLayout Grid.Row="1" Style="{StaticResource MainStackLayout}" IsVisible="{Binding IsVisible}">
+            <Label Text="{Binding PlaceName}" Style="{StaticResource Title}" />
+            <!--<Label Text="{Binding Date, StringFormat='{0:yyyy 年 M 月 dd 日}'}" Style="{StaticResource SubTitle}" />-->
+            <Label Text="{Binding WeatherData.CurrentDataDate}" Style="{StaticResource SubTitle}" />
+        </VerticalStackLayout>
+        <!--#endregion-->
+
+        <!--#region 天気のアニメーション -->
+        <skia:SKLottieView Grid.Row="2" RepeatCount="-1" Source="{Binding WeatherData.current.weather_code, Converter={StaticResource CodeToLottie}}" />
+        <!--#endregion-->
+
+        <!--#region 天気の詳細 -->
+        <Grid Grid.Row="3" ColumnDefinitions="*,*,*" IsVisible="{Binding IsVisible}">
+            <VerticalStackLayout Grid.Column="0" Style="{StaticResource SubStuckLayout}">
+                <Label Text="Temperature" Style="{StaticResource WeatherTitle}"/>
+                <Label Text="{Binding WeatherData.current.temperature_2m, StringFormat='{0} ℃'}"
+                       Style="{StaticResource WeatherValue}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="1" Style="{StaticResource SubStuckLayout}">
+                <Label Text="Wind" Style="{StaticResource WeatherTitle}"/>
+                <Label Text="{Binding WeatherData.current.wind_speed_10m, StringFormat='{0} km/h'}"
+                       Style="{StaticResource WeatherValue}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="2" Style="{StaticResource SubStuckLayout}">
+                <Label Text="Weather" Style="{StaticResource WeatherTitle}"/>
+                <Label Text="{Binding WeatherData.current.weather_code, Converter={StaticResource CodeToWeather}}"
+                       Style="{StaticResource WeatherValue}"/>
+            </VerticalStackLayout>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region 週間予報 -->
+        <CollectionView Grid.Row="4" ItemsSource="{Binding WeatherData.OtherDay}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Style="{StaticResource card}">
+                        <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                            <skia:SKLottieView IsAnimationEnabled="False" HeightRequest="50" WidthRequest="50"
+                                               Source="{Binding weather_code, Converter={StaticResource CodeToLottie}}" />
+                            <Label Text="{Binding time}" TextColor="{StaticResource Yellow100Accent}"/>
+                            <Label Text="{Binding temperature_2m_max, StringFormat='{0} ℃'}" />
+                            <Label Text="{Binding weather_code, Converter={StaticResource CodeToWeather}}" FontSize="13"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!--#endregion-->
+
+        <!--#region ロード アニメーション -->
+        <Grid Grid.RowSpan="5" Style="{StaticResource Loading}" IsVisible="{Binding IsLoading}">
+            <ActivityIndicator IsRunning="True" VerticalOptions="Center" />
+        </Grid>
+        <!--#endregion-->
+    </Grid>
+</ContentPage>

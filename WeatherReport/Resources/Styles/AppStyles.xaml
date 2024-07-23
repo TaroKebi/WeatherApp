@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource DarkBlue}" />
+    </Style>
+
+    <!--#region ラベルのスタイル -->
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="FontFamily" Value="Rubik" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="Title" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="Margin" Value="0,15,0,0" />
+    </Style>
+
+    <Style x:Key="SubTitle" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <Style x:Key="WeatherTitle" TargetType="Label">
+        <Setter Property="FontFamily" Value="RubikLight" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <Style x:Key="WeatherValue" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    <!--#endregion-->
+
+    <!--#region 検索結果の都市名と日付のスタイル -->
+    <Style x:Key="MainStackLayout" TargetType="VerticalStackLayout">
+        <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="Spacing" Value="15" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+    <!--#endregion-->
+
+    <!--#region 天気の詳細 -->
+    <Style x:Key="SubStuckLayout" TargetType="VerticalStackLayout">
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="Spacing" Value="10" />
+    </Style>
+    <!--#endregion-->
+
+    <!--#region 週間予報カードのスタイル -->
+    <Style x:Key="card" TargetType="Frame">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BackgroundColor" Value="{StaticResource CardBlue}" />
+        <Setter Property="BorderColor" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="HeightRequest" Value="160" />
+        <Setter Property="WidthRequest" Value="150" />
+        <!--<Setter Property="Opacity" Value=".1" />-->
+    </Style>
+    <!--#endregion-->
+
+    <!--#region ロード アニメーションのスタイル -->
+    <Style x:Key="Loading" TargetType="Grid">
+        <Setter Property="Margin" Value="-15" />
+        <Setter Property="BackgroundColor" Value="Black" />
+        <Setter Property="Opacity" Value=".9" />
+    </Style>
+    <!--#endregion-->
+
+</ResourceDictionary>
