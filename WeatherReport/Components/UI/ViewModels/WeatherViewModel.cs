@@ -13,7 +13,7 @@ internal sealed class WeatherViewModel
     private IWeatherRepository _weatherInfra;
     public WeatherData WeatherData { get; set; }
     public string PlaceName { get; set; }
-    public bool IsVisible { get; set; } = false;
+    public bool IsMainVisible { get; set; } = false;
     public bool IsLoading { get; set; } = false;
     
 
@@ -54,7 +54,7 @@ internal sealed class WeatherViewModel
                 // Location 型の地名を渡して天気の情報を取得、WeatherData フィールドに格納
                 WeatherData = await _weatherInfra.GetWeather(location);
 
-                IsVisible = true;
+                IsMainVisible = true;
                 IsLoading = false;
             }
             else

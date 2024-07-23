@@ -25,7 +25,7 @@
         <!--#endregion-->
 
         <!--#region 検索結果の都市名と日付 -->
-        <VerticalStackLayout Grid.Row="1" Style="{StaticResource MainStackLayout}" IsVisible="{Binding IsVisible}">
+        <VerticalStackLayout Grid.Row="1" Style="{StaticResource MainStackLayout}" IsVisible="{Binding IsMainVisible}">
             <Label Text="{Binding PlaceName}" Style="{StaticResource Title}" />
             <!--<Label Text="{Binding Date, StringFormat='{0:yyyy 年 M 月 dd 日}'}" Style="{StaticResource SubTitle}" />-->
             <Label Text="{Binding WeatherData.CurrentDataDate}" Style="{StaticResource SubTitle}" />
@@ -37,7 +37,7 @@
         <!--#endregion-->
 
         <!--#region 天気の詳細 -->
-        <Grid Grid.Row="3" ColumnDefinitions="*,*,*" IsVisible="{Binding IsVisible}">
+        <Grid Grid.Row="3" ColumnDefinitions="*,*,*" IsVisible="{Binding IsMainVisible}">
             <VerticalStackLayout Grid.Column="0" Style="{StaticResource SubStuckLayout}">
                 <Label Text="Temperature" Style="{StaticResource WeatherTitle}"/>
                 <Label Text="{Binding WeatherData.current.temperature_2m, StringFormat='{0} ℃'}"
